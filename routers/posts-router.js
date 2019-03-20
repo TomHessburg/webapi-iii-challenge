@@ -10,10 +10,23 @@ router.get('/', (req,res) => {
         .catch(err => res.status(400).json({errorMessage: 'cant find posts'}))
 })
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id
 
+    Posts.getById(id)
+        .then(posts => res.status(200).json(posts))
+        .catch(err => res.status(400).json({errorMessage: 'cant find this specific post'}))
+})
 
-router.get('/', (req,res) => {
-    res.status(404).json('hooked up posts!')
+router.get('/specifiedUser/:id', (req, res) => {
+    const id = req.params.id
+
+    Posts.get(id)
+        .then(posts => {
+            const filtered = posts.filter(post => post["user_id"] === Number(id))
+            res.status(200).json(filtered)
+        })
+        .catch(err => res.status(400).json({errorMessage: 'cant find this specific post'}))
 })
 
 
