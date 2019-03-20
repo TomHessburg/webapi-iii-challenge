@@ -29,5 +29,28 @@ router.get('/specifiedUser/:id', (req, res) => { //returns all posts from a user
         .catch(err => res.status(400).json({errorMessage: 'cant find this specific post'}))
 })
 
+router.post('/', (req,res) => { //add posts, need a beter way to have a dynamic id...
+    req.body.id = Math.floor(Math.random()*100000)
+    Posts.insert(req.body)
+        .then(r => res.status(201).json(r))
+        .catch(err => res.status(400).json({errorMessage: 'couldnt add post'}))
+})
+
+router.delete('/:id', (req,res) => { //delete post by id
+    const id = req.params.id
+
+    Posts.remove(id)
+        .then(num => res.status(200).json({message: 'post successfully deleted'}))
+        .catch(err => res.status(400).json(err))
+})
+
+router.put('/:id', (req,res) => {
+    const id = req.params.id
+    Posts.update(id, req.body)
+        .then(r => res.status(201).json({message: 'successfully updataed post'}))
+        .catch(err => res.status(400).json({errMessage: 'error udpating post'}))
+
+})
+
 
 module.exports = router;
