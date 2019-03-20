@@ -23,6 +23,12 @@ router.get('/:id', (req,res) => {
         .catch(err => res.status(400).json({errorMessage: 'cant find specific user'}))
 })
 
+router.post('/', (req,res) => {
+    Users.insert(req.body)
+        .then(user => res.status(201).json(user))
+        .catch(err => res.status(400).json({errorMessage: 'cant add new user'}))
+})
+
 
 
 

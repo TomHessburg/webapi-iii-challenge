@@ -4,13 +4,13 @@ const Posts = require('../data/helpers/postDb.js');
 
 const router = express.Router();
 
-router.get('/', (req,res) => {
+router.get('/', (req,res) => {  //gets all posts
     Posts.get()
         .then(user => res.status(200).json(user))
         .catch(err => res.status(400).json({errorMessage: 'cant find posts'}))
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res) => { //returns the post with the id specified
     const id = req.params.id
 
     Posts.getById(id)
@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(400).json({errorMessage: 'cant find this specific post'}))
 })
 
-router.get('/specifiedUser/:id', (req, res) => {
+router.get('/specifiedUser/:id', (req, res) => { //returns all posts from a user
     const id = req.params.id
 
     Posts.get(id)
@@ -28,8 +28,6 @@ router.get('/specifiedUser/:id', (req, res) => {
         })
         .catch(err => res.status(400).json({errorMessage: 'cant find this specific post'}))
 })
-
-
 
 
 module.exports = router;
