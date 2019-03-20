@@ -20,6 +20,13 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  deleteUser = id => {
+    console.log(id)
+    axios.delete(`http://localhost:4000/api/users/${id}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <div className="App">
@@ -27,7 +34,7 @@ class App extends Component {
       <Route path="/posts/:id" render={props => <UserPosts {...props} />} />
 
         {this.state.users.length > 0 ? this.state.users.map(user => {
-          return <User key={user.id} user={user} />
+          return <User deleteUser={this.deleteUser} key={user.id} user={user} />
         }) : null}
       </div>
     );

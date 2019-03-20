@@ -22,6 +22,13 @@ class UserPosts extends React.Component {
             .catch(err => console.log(err))
     }
 
+    deletePost = id => {
+        console.log(id);
+        axios.delete(`http://localhost:4000/api/posts/${id}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
+
     render(){
         return(
             <div>
@@ -32,9 +39,14 @@ class UserPosts extends React.Component {
                     </Link>
                     <ul>
                         {this.state.posts.map((post, index) => {
-                            return <div key={post.id}>
+                            return <div key={post.id}
+                                style={{border: "1px solid white", width: '90vw', margin: '10px auto', padding: '10px'}}
+                            >
                             <span>post {index+1}:</span>
                             <p>{post.text}</p>
+                            <button
+                                onClick={e => this.deletePost(post.id)}
+                            >delete this post</button>
                             </div>
                         })}
                     </ul>

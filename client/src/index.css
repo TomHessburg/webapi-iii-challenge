@@ -19,9 +19,9 @@ code {
   background: rgba(0,0,0,0.8);
   position: absolute;
   top: 0;
-  height: 100%;
   overflow: scroll;
   display: flex;
+  padding: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
